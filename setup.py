@@ -105,17 +105,15 @@ class Database():
         if self.execute('ALTER TABLE', table_name, 'DROP COLUMN', column_name):
             print('Column', column_name, 'has been deleted.')
     
-    ###############################################################################
-    '''THESE TWO FUNCTIONS STILL ARE UNDER REVIEW'''
-    def getColumn(self, column, table_name, condition=None):
-        query = 'SELECT ' + column + ' FROM ' +table_name
-        if condition is not None:
-            query += 'WHERE ' + 
+    # '''THESE TWO FUNCTIONS STILL ARE UNDER REVIEW'''
+    # def getColumn(self, column, table_name, condition=None):
+    #     query = 'SELECT ' + column + ' FROM ' +table_name
+    #     if condition is not None:
+    #         query += 'WHERE ' + 
     
-    def getTable(self, table_name):
-        query = 'SELECT * FROM ' + table_name +';'
-    ''''''
-    ################################################################################
+    # def getTable(self, table_name):
+    #     query = 'SELECT * FROM ' + table_name +';'
+    # ''''''
 
     def execute(self, query):
         try:
