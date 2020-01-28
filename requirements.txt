@@ -1,0 +1,6 @@
+#pip install -r requirements-windows.txt
+#Run this command once inside your virtualenv to make sure all versions align
+#Change the Django version to the version that is on your device
+
+psycopg2
+numpy
