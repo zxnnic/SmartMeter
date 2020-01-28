@@ -26,7 +26,7 @@ powerScout = ModbusSlaveContext(
     ir = ModbusSequentialDataBlock(0x0000, [16]*0x270E)) # analog input registers
 context = ModbusServerContext(slaves=powerScout, single=True)
 
-client = ModbusSerialClient(method='rtu',port='/dev/ttyUSB0',parity='N',stopbits=1,bytesize=8,baudrate=9600,timeout=3)
+client = ModbusSerialClient(method='rtu',port='/dev/ttyTHS2',parity='N',stopbits=1,bytesize=8,baudrate=9600,timeout=3)
 # Establish connection
 client.connect()
 
