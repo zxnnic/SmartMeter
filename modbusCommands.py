@@ -26,55 +26,58 @@ powerScout = ModbusSlaveContext(
     ir = ModbusSequentialDataBlock(0x0000, [16]*0x270E)) # analog input registers
 context = ModbusServerContext(slaves=powerScout, single=True)
 
-client = ModbusSerialClient(method='rtu',port='/dev/ttyTHS2',parity='N',stopbits=1,bytesize=8,baudrate=9600,timeout=3)
+client = ModbusSerialClient(method='ascii',port='/dev/ttyTHS2',parity='N',stopbits=1,bytesize=8,baudrate=9600,timeout=3)
 # Establish connection
 client.connect()
 
 # Run the server
 StartSerialServer(context, port='/dev/pts/3', timeout=1)
 
-# Send data request
-value = client.read_holding_registers(VOLTS_L1_TO_NEUTRAL,16,unit=0)
-buffer = "Requested value %d\n" % value
+
+# Send data request and log response
+rr = client.read_holding_registers(VOLTS_L1_TO_NEUTRAL,1,unit=0) # address, count # of registers to read, slave address
+buffer = "Requested value %d\n" % rr
 log.info(buffer)
 
-value = client.read_holding_registers(AMPS_L1,16,unit=0)
-buffer = "Requested value %d\n" % value
+rr = client.read_holding_registers(AMPS_L1,1,unit=0)
+buffer = "Requested value %d\n" % rr
 log.info(buffer)
 
-value = client.read_holding_registers(KVA,16,unit=0)
-buffer = "Requested value %d\n" % value
-log.info(buffer)
+rr = client.read_holding_registers(KVA,1,unit=0)
+buffer = "Requested value %d\n" % rr
 
-time.sleep(20)
-
-value = client.read_holding_registers(VOLTS_L1_TO_NEUTRAL,16,unit=0)
-buffer = "Requested value %d\n" % value
-log.info(buffer)
-
-value = client.read_holding_registers(AMPS_L1,16,unit=0)
-buffer = "Requested value %d\n" % value
-log.info(buffer)
-
-value = client.read_holding_registers(KVA,16,unit=0)
-buffer = "Requested value %d\n" % value
 log.info(buffer)
 
 time.sleep(20)
 
-value = client.read_holding_registers(VOLTS_L1_TO_NEUTRAL,16,unit=0)
-buffer = "Requested value %d\n" % value
+rr = client.read_holding_registers(VOLTS_L1_TO_NEUTRAL,1,unit=1) # test unit=1
+buffer = "Requested value %d\n" % rr
 log.info(buffer)
 
-value = client.read_holding_registers(AMPS_L1,16,unit=0)
-buffer = "Requested value %d\n" % value
+rr = client.read_holding_registers(AMPS_L1,1,unit=0)
+buffer = "Requested value %d\n" % rr
 log.info(buffer)
 
-value = client.read_holding_registers(KVA,16,unit=0)
-buffer = "Requested value %d\n" % value
+rr = client.read_holding_registers(KVA,1,unit=0)
+buffer = "Requested value %d\n" % rr
+
 log.info(buffer)
 
 time.sleep(20)
 
-# Receive data 
-# Handshake?
+rr = client.read_holding_registers(VOLTS_L1_TO_NEUTRAL,1,unit=0)
+buffer = "Requested value %d\n" % rr
+log.info(buffer)
+
+rr = client.read_holding_registers(AMPS_L1,1,unit=0)
+buffer = "Requested value %d\n" % rr
+log.info(buffer)
+
+rr = client.read_holding_registers(KVA,1,unit=0)
+buffer = "Requested value %d\n" % rr
+
+log.info(buffer)
+
+time.sleep(20)
+
+client.close()
