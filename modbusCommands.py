@@ -33,6 +33,7 @@ client.connect()
 # Run the server
 StartSerialServer(context, port='/dev/pts/3', timeout=1)
 
+
 # Send data request and log response
 rr = client.read_holding_registers(VOLTS_L1_TO_NEUTRAL,1,unit=0) # address, count # of registers to read, slave address
 buffer = "Requested value %d\n" % rr
@@ -44,6 +45,7 @@ log.info(buffer)
 
 rr = client.read_holding_registers(KVA,1,unit=0)
 buffer = "Requested value %d\n" % rr
+
 log.info(buffer)
 
 time.sleep(20)
@@ -58,6 +60,7 @@ log.info(buffer)
 
 rr = client.read_holding_registers(KVA,1,unit=0)
 buffer = "Requested value %d\n" % rr
+
 log.info(buffer)
 
 time.sleep(20)
@@ -72,6 +75,7 @@ log.info(buffer)
 
 rr = client.read_holding_registers(KVA,1,unit=0)
 buffer = "Requested value %d\n" % rr
+
 log.info(buffer)
 
 time.sleep(20)

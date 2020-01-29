@@ -1,0 +1,4 @@
+REFERENCES
+
+information on Jetson TX2 J21 pinout
+  https://www.jetsonhacks.com/nvidia-jetson-tx2-j21-header-pinout/
