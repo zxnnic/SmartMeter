@@ -12,6 +12,22 @@ For ECE 490 project, collect data from a PowerScout 3037S and process the data t
   * Formatting the data so it can be used for graphing
   * Creating real-time/live plots
 
+# Initial set up
+
+Assuming that MySQL database called smart_meter_db exists and Python 3.0+ is on your device.
+
+1. Create a new file in the same folder named `db_settings_secret.py` and in that file paste the following
+
+       """  
+       These settings must never be uploaded onto github.
+
+       Keep it secret
+       """
+       DB_USERNAME = "[Your_DB_Username]"
+
+       DB_PASSWORD = "[enter your mysql root user password here]"
+
+
 # Database Class usage
 
 Database class has the following main methods
