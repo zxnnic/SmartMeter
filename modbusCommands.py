@@ -41,6 +41,7 @@ print('starting serial server')
 print('done connecting to server!')
 
 async def start_async_test(client):
+
 # Send data request and log response
 try:
 print('we in')
