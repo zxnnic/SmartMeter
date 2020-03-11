@@ -73,11 +73,13 @@ class Database():
             print(table_name + ' successfully deleted.')
 
     def deleteRow(self, table_name, condition):
-        if self.execute('DELETE FROM',table_name,'WHERE',condition):
+        query = 'DELETE FROM '+table_name+' WHERE '+condition
+        if self.execute(query):
             print('Rows containing',condition,'in',table_name,'has been deleted.')
         
     def deleteColumn(self, table_name, column_name):
-        if self.execute('ALTER TABLE', table_name, 'DROP COLUMN', column_name):
+        query = 'ALTER TABLE '+table_name+' DROP COLUMN '+column_name
+        if self.execute(query):
             print('Column', column_name, 'has been deleted.')
     
     def getQuery(self, query):
@@ -161,7 +163,7 @@ if __name__ == "__main__":
             time.sleep(5)
             db.execute('insert into energy_use values (now(), 2.0, 120, 1, 120)')
         elif user_input == 4:
-            db.delete('hehe', 12)
+            db.deleteColumn('energy_use','current')
         elif user_input == 5:
             data = db.getQuery('select * from energy_use')
             print(type(data))
