@@ -12,7 +12,6 @@
 
 import mysql.connector
 from mysql.connector import Error
-from db_settings_secret import *
 
 class Database():
     def __init__(self, db_user, db_pass, db_host, db_port, db_name):
@@ -123,7 +122,7 @@ class Database():
 ##########################################################################
 ########################## TESTING #######################################
 ##########################################################################
-
+from db_settings_secret import *
 import time
 if __name__ == "__main__":
     # This is used to test out if the database can be connected
