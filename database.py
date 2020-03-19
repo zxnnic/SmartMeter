@@ -13,7 +13,7 @@
 import mysql.connector
 from mysql.connector import Error
 
-class Database():
+class Database:
     def __init__(self, db_user, db_pass, db_host, db_port, db_name):
         self.__user = db_user
         self.__password = db_pass

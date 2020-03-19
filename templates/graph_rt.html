@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Meter by zenYamz</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- D3.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <!-- Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- import Pusher-js library -->
+    <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Welcome to zenYamz's <strong>Smart Meter</strong> monitoring system</h1>
+        <p class="subtitle">View live energy consumption in real time!</p>
+        <hr>
+        <div class="row" id="graph">
+            <div class="col">
+                <h5 class="title is-6">Energy Grid (kWh)</h5>
+                <div id="grid" class="chart">
+                    Graph
+                </div>
+            </div>
+            <div class="col">
+                <h5 class="title is-6">Solar Energy Plus (kWh)</h5>
+                <div id="solarp" class="chart">
+                    Graph
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- import our data script in -->
+    <script src="./static/realtime.js"></script>
+</body>
+</html>
