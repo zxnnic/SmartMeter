@@ -54,7 +54,7 @@ class GraphRT:
 
     def graphIt(self):
         # get info from database
-        c_time, grid, solarp = self.getData()
+        data = self.getData()
         # append info to a list for graph
         self.time.append(c_time)
         self.energy['solar_prod'].append(solarp)
@@ -119,8 +119,8 @@ class GraphS:
             name="Solar Plus"
         )]
         data = {
-            'grid': json.dumps(list(grid_data), cls=plotly.utils.PlotlyJSONEncoder),
-            'solarp': json.dumps(list(solarp_data), cls=plotly.utils.PlotlyJSONEncoder)
+            'grid': json.dumps(grid_data, cls=plotly.utils.PlotlyJSONEncoder),
+            'solarp': json.dumps(solarp_data, cls=plotly.utils.PlotlyJSONEncoder)
         }
         return data
 

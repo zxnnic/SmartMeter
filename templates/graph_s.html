@@ -24,19 +24,21 @@
         <div class="row" id="graphs">
             <div class="col">
                 <h5 class="title is-6">Energy Grid (kWh)</h5>
-                <div id="grid" class="chart">
-                    Graph
-                </div>
+                <div id="grid" class="chart"></div>
             </div>
             <div class="col">
                 <h5 class="title is-6">Solar Energy Plus (kWh)</h5>
-                <div id="solarp" class="chart">
-                    Graph
-                </div>
+                <div id="solarp" class="chart"></div>
             </div>
         </div>
     </div>
     <!-- import our data script in -->
+    <script>
+        var grid = {{grid|safe}},
+            solarp = {{solarp|safe}};
+        Plotly.plot('grid',grid,{});
+        Plotly.plot('solarp',solarp,{});
+    </script>
     <script src="./static/static.js"></script>
 </body>
 </html>
