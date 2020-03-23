@@ -24,7 +24,7 @@ def home():
         graph = GraphS(db, time_interval=15, num_pts = 500)
         atexit.register(graph.shutdown)
         data = graph.graphIt()
-        return render_template("graph_s.html",grid=data['grid'],solarp=data['solarp'])
+        return render_template("graph_s.html",consumed=data['consumption'],generated=data['generation'])
     else:
         # time_interval is seconds between each point
         graph = GraphRT(db,time_interval=10)

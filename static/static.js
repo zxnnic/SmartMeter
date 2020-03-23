@@ -1,5 +1,18 @@
-var graphs = {{graph|safe}};
-
 $(document).ready(function(){
-    graphs = JSON.parse(graphs)
+    $('#generated-btn').click(()=>{
+        $('#initial-choices').hide();
+        $('#generated-graph').show();
+    });
+    $('#consumed-btn').click(()=>{
+        $('#initial-choices').hide();
+        $('#consumed-graph').show();
+    });
+    $('#switch-g-btn').click(()=>{
+        $('#generated-graph').hide();
+        $('#consumed-graph').show();
+    });
+    $('#switch-c-btn').click(()=>{
+        $('#consumed-graph').hide();
+        $('#generated-graph').show();
+    });
 })

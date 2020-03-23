@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Meter by zenYamz</title>
+    <!-- style -->
+    <link rel="stylesheet" href="../static/style.css">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -21,23 +23,36 @@
         <h1 class="title">Welcome to zenYamz's <strong>Smart Meter</strong> monitoring system</h1>
         <p class="subtitle">View energy consumption</p>
         <hr>
-        <div class="row" id="graphs">
-            <div class="col">
-                <h5 class="title is-6">Energy Grid (kWh)</h5>
-                <div id="grid" class="chart"></div>
+        <div class="justify-content-center" id="initial-choices">
+            Please choose which graph you would like to view:
+            <div class="row justify-content-center mt-3">
+                <button class="btn btn-primary mx-2" id="generated-btn">Generated Energy</button>
+                <button class="btn btn-primary mx-2" id="consumed-btn">Consumed Energy</button>
             </div>
-            <div class="col">
-                <h5 class="title is-6">Solar Energy Plus (kWh)</h5>
-                <div id="solarp" class="chart"></div>
+        </div>
+        <div class="justify-content-center" id="generated-graph">
+            <div class="row mt-3 mb-3">
+                <button class="inline btn btn-light text-muted">Energy Generated</button>
+                <button class="inline btn btn-primary" id="switch-g-btn">Energy Consumed</button>
             </div>
+            <h5 class="title is-6">Energy Generated (kWh)</h5>
+            <div id="generated" class="chart"></div>
+        </div>
+        <div class="justify-content-center" id="consumed-graph">
+            <div class="row mt-3 mb-3">
+                <button class="inline btn btn-light text-muted">Energy Consumed</button>
+                <button class="inline btn btn-primary" id="switch-c-btn">Energy Generated</button>
+            </div>
+            <h5 class="title is-6">Energy Consumed (kWh)</h5>
+            <div id="consumed" class="chart"></div>
         </div>
     </div>
     <!-- import our data script in -->
     <script>
-        var grid = {{grid|safe}},
-            solarp = {{solarp|safe}};
-        Plotly.plot('grid',grid,{});
-        Plotly.plot('solarp',solarp,{});
+        var generated = {{generated|safe}},
+            consumed = {{consumed|safe}};
+        Plotly.plot('generated',generated,{});
+        Plotly.plot('consumed',consumed,{});
     </script>
     <script src="./static/static.js"></script>
 </body>

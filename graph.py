@@ -79,7 +79,7 @@ class GraphS:
         self.time_interval = time_interval
         self.num_pts = num_pts
         self.time = []
-        self.energy = {'solarp':[], 'grid':[]}
+        self.energy = {'consumption':[], 'generation':[]}
 
     def getData(self):
         '''
@@ -104,23 +104,23 @@ class GraphS:
         data = self.getData()
         for t,g,s in data:
             self.time.append(self.unixToDatetime(t))
-            self.energy['grid'].append(g)
-            self.energy['solarp'].append(s)
+            self.energy['consumption'].append(round(float(g)+float(s)))
+            self.energy['generation'].append(round(float(s)))
         
         # put the data into axis for Plotly
-        grid_data = [go.Scatter(
+        c_data = [go.Scatter(
             x=self.time,
-            y=self.energy['grid'],
-            name="Grid Consumption"
+            y=self.energy['consumption'],
+            name="Consumed Energy"
         )]
-        solarp_data = [go.Scatter(
+        g_data = [go.Scatter(
             x=self.time,
-            y=self.energy['solarp'],
-            name="Solar Plus"
+            y=self.energy['generation'],
+            name="Generated Energy"
         )]
         data = {
-            'grid': json.dumps(grid_data, cls=plotly.utils.PlotlyJSONEncoder),
-            'solarp': json.dumps(solarp_data, cls=plotly.utils.PlotlyJSONEncoder)
+            'consumption': json.dumps(c_data, cls=plotly.utils.PlotlyJSONEncoder),
+            'generation': json.dumps(g_data, cls=plotly.utils.PlotlyJSONEncoder)
         }
         return data
 
