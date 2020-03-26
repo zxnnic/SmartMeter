@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>zenYamz</title>
+    <!-- style -->
+    <link rel="stylesheet" href="../static/style.css">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+</head>
+<body>
+    <!-- Welcome section -->
+    <div class="welcome-section content-hidden">
+        <div class="content-wrap">
+            <ul class="fly-in-text">
+                <li>Welcome</li>
+                <li>to SmartMeter Visualizer</li>
+            </ul>
+            <div class="text">Please select the type of graph you would like to view:</div>
+            <div class="links">
+                <a class="pl-btn" href="{{url_for('preloaded')}}">static</a>
+                <a class="rlt-btn" href="{{url_for('realtime')}}">real-time</a>
+            </div>
+        </div>
+        <div id="credit-home">Created by zenYamz  2019 - 2020</div>
+    </div>
+    <script type="text/javascript">
+            
+        $(document).ready(function() {
+            var welcomeSection = $('.welcome-section');
+            setTimeout(function() {
+                welcomeSection.removeClass('content-hidden');
+            }, 300);
+            setTimeout(function(){
+                $("a").css('transition','all 0.2s ease');
+            }, 5000);
+        });
+    </script>
+</body>
+</html>

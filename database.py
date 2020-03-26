@@ -12,9 +12,8 @@
 
 import mysql.connector
 from mysql.connector import Error
-from db_settings_secret import *
 
-class Database():
+class Database:
     def __init__(self, db_user, db_pass, db_host, db_port, db_name):
         self.__user = db_user
         self.__password = db_pass
@@ -73,11 +72,13 @@ class Database():
             print(table_name + ' successfully deleted.')
 
     def deleteRow(self, table_name, condition):
-        if self.execute('DELETE FROM',table_name,'WHERE',condition):
+        query = 'DELETE FROM '+table_name+' WHERE '+condition
+        if self.execute(query):
             print('Rows containing',condition,'in',table_name,'has been deleted.')
         
     def deleteColumn(self, table_name, column_name):
-        if self.execute('ALTER TABLE', table_name, 'DROP COLUMN', column_name):
+        query = 'ALTER TABLE '+table_name+' DROP COLUMN '+column_name
+        if self.execute(query):
             print('Column', column_name, 'has been deleted.')
     
     def getQuery(self, query):
@@ -121,7 +122,7 @@ class Database():
 ##########################################################################
 ########################## TESTING #######################################
 ##########################################################################
-
+from db_settings_secret import *
 import time
 if __name__ == "__main__":
     # This is used to test out if the database can be connected
@@ -161,7 +162,7 @@ if __name__ == "__main__":
             time.sleep(5)
             db.execute('insert into energy_use values (now(), 2.0, 120, 1, 120)')
         elif user_input == 4:
-            db.delete('hehe', 12)
+            db.deleteColumn('energy_use','current')
         elif user_input == 5:
             data = db.getQuery('select * from energy_use')
             print(type(data))
