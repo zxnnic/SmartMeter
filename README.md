@@ -26,6 +26,8 @@ Assuming that MySQL database called smart_meter_db exists and Python 3.0+ is on 
        DB_USERNAME = "[Your_DB_Username]"
 
        DB_PASSWORD = "[enter your mysql root user password here]"
+       
+2. For pre-loaded data, run the sql file `profile13830.sql` into your database. Table creation is included in the sql file.
 
 # Launching the app
 
