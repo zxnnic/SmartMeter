@@ -27,6 +27,18 @@ Assuming that MySQL database called smart_meter_db exists and Python 3.0+ is on 
 
        DB_PASSWORD = "[enter your mysql root user password here]"
 
+# Launching the app
+
+Step into the folder and run the following command on a terminal
+
+       python realtime_db_simulator.py
+
+Then open a separate terminal and run the command
+
+       python app.py
+
+Follow the link provided and the website will be available to you. :)
+
 
 # Database Class usage
 
