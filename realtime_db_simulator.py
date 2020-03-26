@@ -40,6 +40,7 @@ def simulator():
     # insert data one at a time
     for row in data:
         db.execute("INSERT INTO e_sim VALUES "+str(row))
+        print('inserting '+str(row)+' into the database')
         time.sleep(1)
 
 if __name__ == "__main__":
