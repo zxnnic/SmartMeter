@@ -33,7 +33,7 @@ Assuming that Python 3.0+ is on your device.
 
        DB_PASSWORD = "[enter your mysql root user password here]"
        
-4. For pre-loaded data, create the following talbe:
+4. For pre-loaded data, create the following table:
 
        DROP TABLE IF EXISTS profiles;
        CREATE TABLE IF NOT EXISTS profiles (
