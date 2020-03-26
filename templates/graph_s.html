@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Meter by zenYamz</title>
     <!-- style -->
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <link rel="stylesheet" href="../static/style.css">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -17,36 +18,66 @@
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <!-- Plotly.js -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- Aditional button functionalities -->
+    <script src="../static/button.js"></script>
 </head>
 <body>
+    <!-- Title -->
+    <h1 class="title">SmartMeter Visualizer</h1>
+    <!-- Navigation bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark row mb-3">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{url_for('home')}}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Static</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{url_for('realtime')}}">Real-time</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Main content -->
     <div class="container">
-        <h1 class="title">Welcome to zenYamz's <strong>Smart Meter</strong> monitoring system</h1>
-        <p class="subtitle">View energy consumption</p>
-        <hr>
+        <!-- Initial graph selection -->
         <div class="justify-content-center" id="initial-choices">
-            Please choose which graph you would like to view:
+            <div class="header1 mb-0">Welcome to the static plot visualizer! </div>
+            <br>
+            Here graphs created using previously gathered data will be plotted.
+            Please choose which specific type of graph you would like to view:
             <div class="row justify-content-center mt-3">
-                <button class="btn btn-primary mx-2" id="generated-btn">Generated Energy</button>
-                <button class="btn btn-primary mx-2" id="consumed-btn">Consumed Energy</button>
+                <button class="mx-2 btn-mine" id="generated-btn">Generated Energy</button>
+                <button class="mx-2 btn-mine" id="consumed-btn">Consumed Energy</button>
             </div>
         </div>
+
+        <!-- Energy generated plot -->
         <div class="justify-content-center" id="generated-graph">
             <div class="row mt-3 mb-3">
+                <button class="inline btn-mine" id="switch-g-btn">Energy Consumed</button>
                 <button class="inline btn btn-light text-muted">Energy Generated</button>
-                <button class="inline btn btn-primary" id="switch-g-btn">Energy Consumed</button>
             </div>
-            <h5 class="title is-6">Energy Generated (kWh)</h5>
+            <h5 class="is-6 header1">Energy Generated (kWh)</h5>
             <div id="generated" class="chart"></div>
         </div>
+
+        <!-- Energy consumed plot -->
         <div class="justify-content-center" id="consumed-graph">
             <div class="row mt-3 mb-3">
                 <button class="inline btn btn-light text-muted">Energy Consumed</button>
-                <button class="inline btn btn-primary" id="switch-c-btn">Energy Generated</button>
+                <button class="inline btn-mine" id="switch-c-btn">Energy Generated</button>
             </div>
-            <h5 class="title is-6">Energy Consumed (kWh)</h5>
+            <h5 class="is-6 header1">Energy Consumed (kWh)</h5>
             <div id="consumed" class="chart"></div>
         </div>
     </div>
+    <div id="credit">Created by zenYamz  2019 - 2020</div>
     <!-- import our data script in -->
     <script>
         var generated = {{generated|safe}},
@@ -54,6 +85,5 @@
         Plotly.plot('generated',generated,{});
         Plotly.plot('consumed',consumed,{});
     </script>
-    <script src="./static/static.js"></script>
 </body>
 </html>

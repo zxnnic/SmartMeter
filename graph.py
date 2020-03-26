@@ -11,13 +11,12 @@ from apscheduler.triggers.interval import IntervalTrigger
 class GraphRT:
     def __init__(self,db,time_interval):
         self.db = db
-        self.time_interval = time_interval
-        self.scheduler = self.setup_scheduler()
+        self.scheduler = self.setup_scheduler(time_interval)
         self.pusher = self.setup_pusher()
         self.time = []
-        self.energy = {'solar_prod':[], 'grid_cons':[]}
+        self.energy = {'consumption':[], 'generation':[]}
 
-    def setup_scheduler(self):
+    def setup_scheduler(self,time_interval):
         '''
         Create schedule for retrieving prices
         Returns: scheduler object
@@ -26,9 +25,9 @@ class GraphRT:
         scheduler.start()
         scheduler.add_job(
             func=self.graphIt,
-            trigger=IntervalTrigger(seconds=self.time_interval),
+            trigger=IntervalTrigger(seconds=time_interval),
             id='get_energy',
-            name='Retrieve solar energy produced every 10 seconds',
+            name='Retrieve energy information every 30 seconds',
             replace_existing=True)
         
         return scheduler
@@ -38,32 +37,52 @@ class GraphRT:
         Configure pusher object
         '''
         pusher = Pusher(
-            app_id='962040',
-            key='fab32afad87f9a9d80a6',
-            secret='4e3291c27abf38f7c9eb',
+            app_id='969963',
+            key='3f01e1d36db05ef9e19b',
+            secret='1042ca3ae4c69ed45061',
             cluster='us3',
             ssl=True
         )
         return pusher
 
     def getData(self):
-        pass
+        data = self.db.getQuery('''
+                                SELECT *
+                                FROM e_sim
+                                ORDER BY tstamp DESC
+                                LIMIT 1;
+                                ''')
+        return data[0]
 
     def unixToDatetime(self,unix_time):
         return datetime.fromtimestamp(int(unix_time))
 
     def graphIt(self):
-        # get info from database
         data = self.getData()
-        # append info to a list for graph
-        self.time.append(c_time)
-        self.energy['solar_prod'].append(solarp)
-        self.energy['grid_cons'].append(grid)
-        # create a line graph
-
-        # dump the data into json for transfering to front end
-
-        # create trigger event
+        # add data to the appropriate channel
+        self.time.append(self.unixToDatetime(data[0]))
+        self.energy['consumption'].append(round(float(data[1])+float(data[2])))
+        self.energy['generation'].append(round(float(data[2])))
+        
+        # put the data into axis for Plotly
+        c_data = [go.Scatter(
+            x=self.time,
+            y=self.energy['consumption'],
+            name="Consumed Energy",
+            line={'color':'#A6C55B'}
+        )]
+        g_data = [go.Scatter(
+            x=self.time,
+            y=self.energy['generation'],
+            name="Generated Energy",
+            line={'color':'#A6C55B'}
+        )]
+        data = {
+            'consumption': json.dumps(c_data, cls=plotly.utils.PlotlyJSONEncoder),
+            'generation': json.dumps(g_data, cls=plotly.utils.PlotlyJSONEncoder)
+        }
+        # trigger event
+        self.pusher.trigger("smartmeter", "data-updated", data)
     
     def shutdown(self):
         self.scheduler.shutdown()
@@ -111,12 +130,14 @@ class GraphS:
         c_data = [go.Scatter(
             x=self.time,
             y=self.energy['consumption'],
-            name="Consumed Energy"
+            name="Consumed Energy",
+            line={'color':'#A6C55B'}
         )]
         g_data = [go.Scatter(
             x=self.time,
             y=self.energy['generation'],
-            name="Generated Energy"
+            name="Generated Energy",
+            line={'color':'#A6C55B'}
         )]
         data = {
             'consumption': json.dumps(c_data, cls=plotly.utils.PlotlyJSONEncoder),

@@ -19,34 +19,19 @@ db.setup()
 # set up route to template
 @app.route("/")
 def home():
-    if static:
-        # time_interval is minute between each point
-        graph = GraphS(db, time_interval=15, num_pts = 500)
-        atexit.register(graph.shutdown)
-        data = graph.graphIt()
-        return render_template("graph_s.html",consumed=data['consumption'],generated=data['generation'])
-    else:
-        # time_interval is seconds between each point
-        graph = GraphRT(db,time_interval=10)
-        atexit.register(graph.shutdown)
-        return render_template("graph_rt.html")
-
-# For determining realtime or not
-def isStatic(argv):
-    try:  
-        if len(argv)>1:
-            assert argv[1] == '-realtime', 'You have entered an invalid argument. The valid options are:\npython app.py\t\t\tFor static graphs\npython app.py -realtime\t\tFor realtime live graphs'
-            static = False
-        else:
-            static = True
-    except Exception as error:
-        for err in error.args:
-            print(err)
-        print('\nThe app will be exiting. See yall later bye :^)')
-    else:
-        return static
-
-static = isStatic(sys.argv)
+    return render_template("home.html")
+@app.route("/graph/realtime")
+def realtime():
+    graph = GraphRT(db,time_interval=2)
+    atexit.register(graph.shutdown)
+    return render_template("graph_rt.html")
+@app.route("/graph/preloaded")
+def preloaded():
+    # time_interval is minute between each point
+    graph = GraphS(db, time_interval=15, num_pts = 500)
+    atexit.register(graph.shutdown)
+    data = graph.graphIt()
+    return render_template("graph_s.html",consumed=data['consumption'],generated=data['generation'])
 
 # run the Flask app
-app.run(debug=True, use_reloader=static)
+app.run(debug=True, use_reloader=False)
