@@ -14,9 +14,15 @@ For ECE 490 project, collect data from a PowerScout 3037S and process the data t
 
 # Initial set up
 
-Assuming that MySQL database called smart_meter_db exists and Python 3.0+ is on your device.
+Assuming that Python 3.0+ is on your device. 
 
-1. Create a new file in the same folder named `db_settings_secret.py` and in that file paste the following
+1. Download MySQL, mysql connnector for Python, and create database called smart_meter_db
+
+2. Install all the dependencies
+
+       pip install -r requirements
+
+3. Create a new file in the same folder named `db_settings_secret.py` and in that file paste the following
 
        """  
        These settings must never be uploaded onto github.
@@ -27,7 +33,18 @@ Assuming that MySQL database called smart_meter_db exists and Python 3.0+ is on 
 
        DB_PASSWORD = "[enter your mysql root user password here]"
        
-2. For pre-loaded data, run the sql file `profile13830.sql` into your database. Table creation is included in the sql file.
+4. For pre-loaded data, run the sql file `profile13830.sql` and populate your database. Table creation is included in the sql file.
+
+5. Go into `app.py` to make sure that all the settings for your database is correct.
+
+6. You first need to create a Pusher account so that real-time values can be fetched and the graphs can be updated. Go to https://pusher.com/ and create a free account.Then create a new channel with us3 cluster, the channel will give you the following information
+
+       app_id = [your app id]
+       key = [your key]
+       secret = [your secret id]
+       cluster = "us3"
+
+7. Edit `app.py` and `graph_s.html` to your app id, key, and secret. 
 
 # Launching the app
 
