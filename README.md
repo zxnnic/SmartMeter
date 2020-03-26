@@ -33,7 +33,18 @@ Assuming that Python 3.0+ is on your device.
 
        DB_PASSWORD = "[enter your mysql root user password here]"
        
-4. For pre-loaded data, run the sql file `profile13830.sql` and populate your database. Table creation is included in the sql file.
+4. For pre-loaded data, create the following talbe:
+
+       DROP TABLE IF EXISTS profiles;
+       CREATE TABLE IF NOT EXISTS profiles (
+        tstamp INTEGER NOT NULL,
+        grid FLOAT, 
+        solar FLOAT, 
+        solarp FLOAT,  
+        PRIMARY KEY (tstamp)
+       );
+   
+   And insert your values in accordingly. 
 
 5. Go into `app.py` to make sure that all the settings for your database is correct.
 
