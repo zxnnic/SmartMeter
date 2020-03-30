@@ -1,13 +1,12 @@
 import pymodbus
 import asyncio
+import serial
 
 
 from pymodbus.client.asynchronous.serial import (
     AsyncModbusSerialClient as ModbusClient)
 from pymodbus.client.asynchronous import schedulers
 
-from pymodbus.datastore import ModbusSequentialDataBlock
-from pymodbus.datastore import ModbusSlaveContext, ModbusServerContext
 from pymodbus.server.asynchronous import StartSerialServer
 from pymodbus.client.sync import ModbusSerialClient
 from pymodbus.transaction import ModbusRtuFramer
@@ -84,6 +83,8 @@ async def start_async_test(client,log):
 
         log.info(buffer)
 
+        await asyncio.sleep(1) #recommended by grad students
+
         #time.sleep(20)
     except Exception as e:
         for err in e.args:
@@ -95,23 +96,13 @@ async def start_async_test(client,log):
 def main():
     log = set_logging()
 
-    #Initialize PowerScout as remote datastore
-    #note: MIGHT REQUIRE ModbusSparseDataBlock instead!!
-    print('setting up the power scout')
-    powerScout = ModbusSlaveContext(
-        di = ModbusSequentialDataBlock(0x0000, [16]*0x270E), # discrete input contacts
-        co = ModbusSequentialDataBlock(0x0000, [16]*0x270E), # discrete output coils
-        hr = ModbusSequentialDataBlock(0x0000, [16]*0x270E), # analog output holding registers
-        ir = ModbusSequentialDataBlock(0x0000, [16]*0x270E)) # analog input registers
-    context = ModbusServerContext(slaves=powerScout, single=True)
-
     # Run the server
     print('starting serial server')
     #StartSerialServer(context, port='/dev/ttyTHS2', framer=ModbusRtuFramer, timeout=1)
     print('done connecting to server!')
 
-    loop, client = ModbusClient(schedulers.ASYNC_IO, port='/dev/ttyTHS2',
-                                baudrate=9600, method='rtu', parity='N', stopbits=1, bytesize=8)
+    loop, client = ModbusClient(schedulers.ASYNC_IO, port="/dev/ttyTHS2",
+                                baudrate=9600, method="rtu", parity='N', stopbits=1, bytesize=8)
     client.connect()
     print('finished clienting')
     loop.run_until_complete(start_async_test(client.protocol,log))
