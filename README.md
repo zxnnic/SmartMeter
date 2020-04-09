@@ -1,9 +1,6 @@
 # SmartMeter
 For ECE 490 project, collect data from a PowerScout 3037S and process the data to create real-time visualizations
 
-# Introduction
-
-
 # Initial set up
 
 Assuming that Python 3.0+ is on your device. 
